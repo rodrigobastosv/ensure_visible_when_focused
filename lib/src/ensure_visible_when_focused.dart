@@ -34,6 +34,7 @@ class EnsureVisibleWhenFocused extends StatefulWidget {
     required this.focusNode,
     this.curve = Curves.easeIn,
     this.duration = const Duration(milliseconds: 100),
+    this.alignment,
   }) : super(key: key);
 
   /// The node we will monitor to determine if the child is focused
@@ -51,6 +52,11 @@ class EnsureVisibleWhenFocused extends StatefulWidget {
   ///
   /// Defaults to 100 milliseconds.
   final Duration duration;
+
+  /// The alignment will override the default alignment behaviour
+  ///
+  /// No default value.
+  final double? alignment;
 
   @override
   _EnsureVisibleWhenFocusedState createState() =>
@@ -150,7 +156,7 @@ class _EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused>
 
     position.ensureVisible(
       object,
-      alignment: alignment,
+      alignment: widget.alignment ?? alignment,
       duration: widget.duration,
       curve: widget.curve,
     );
