@@ -1,3 +1,7 @@
+## 1.2.0
+
+* Adding option to Align
+ 
 ## 1.1.0
 
 * Making compatible with Flutter 3
