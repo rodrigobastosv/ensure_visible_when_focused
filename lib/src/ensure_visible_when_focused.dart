@@ -35,6 +35,7 @@ class EnsureVisibleWhenFocused extends StatefulWidget {
     this.curve = Curves.easeIn,
     this.duration = const Duration(milliseconds: 100),
     this.alignment,
+    this.alwaysAlign = false,
   }) : super(key: key);
 
   /// The node we will monitor to determine if the child is focused
@@ -57,6 +58,12 @@ class EnsureVisibleWhenFocused extends StatefulWidget {
   ///
   /// No default value.
   final double? alignment;
+
+  /// Aligns the child even if it is visible
+  /// If no alignment is given the child will scroll to the top of the viewport
+  ///
+  /// Defaults to false.
+  final bool alwaysAlign;
 
   @override
   _EnsureVisibleWhenFocusedState createState() =>
@@ -142,7 +149,11 @@ class _EnsureVisibleWhenFocusedState extends State<EnsureVisibleWhenFocused>
     final position = scrollableState.position;
     late double alignment;
 
-    if (position.pixels > viewport.getOffsetToReveal(object, 0.0).offset) {
+    if (widget.alwaysAlign) {
+      // Align the child even if it is visible
+      alignment = 0.0;
+    } else if (position.pixels >
+        viewport.getOffsetToReveal(object, 0.0).offset) {
       // Move down to the top of the viewport
       alignment = 0.0;
     } else if (position.pixels <
